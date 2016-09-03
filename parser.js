@@ -89,15 +89,6 @@ function parseAndWriteToDB(fileName, collection, callback) {
                     next(null)
                 }
             });
-            // collection.insertMany(arr, {w: 1, multi: true, upsert: true}, (err, result) => {
-            //     if(err) {
-            //         console.log('mongoerr', err);
-            //         // next(err);
-            //     }
-            //     // else {
-            //         next(null)
-            //     // }
-            // })
         }
     ], function (err, result) {
         if(err) {
