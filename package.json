@@ -10,6 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.0.1",
-    "mongodb": "^2.2.8"
+    "iconv": "^2.2.1",
+    "iconv-lite": "^0.4.13",
+    "mongodb": "^2.2.8",
+    "node-icu-charset-detector": "^0.2.0"
   }
 }

@@ -1,3 +1,4 @@
 .ipynb_checkpoints
-dataFolderS3
+dataFolder*
 node_modules
+temp
