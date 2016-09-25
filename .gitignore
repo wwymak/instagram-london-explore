@@ -1,0 +1,4 @@
+.ipynb_checkpoints
+dataFolder*
+node_modules
+temp
