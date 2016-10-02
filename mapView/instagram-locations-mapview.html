@@ -38,13 +38,15 @@
     canvasOverlay.height = height;
     var ctx = canvasOverlay.getContext('2d');
 
-    d3.csv('instagram-london-locations.csv')
+    d3.csv('instagram-london-counts-by-OA.csv')
         .row((d) => {
             return {
-                locationCount: + d.locationCount,
+                count: + d.count,
                 lng: +d.lng,
                 lat: +d.lat,
-                OA11CD: d.OA11CD
+                OA11CD: d.OA11CD,
+                populationDen: +d.POPDEN,
+                name: d['WD11NM_BF']
             }
         })
         .get((err, data) => {
@@ -52,11 +54,11 @@
             if(data) {
                 console.log(data);
                 var locationCountData = data;
-                var maxCounts = d3.max(locationCountData, d => d.locationCount);
-                var radiusScale = d3.scaleSqrt().domain([1, maxCounts]).range([2, 10]);
-                locationCountData = locationCountData.filter(d => d.locationCount > 0);
+                var maxCounts = d3.max(locationCountData, d => d.count);
+                var radiusScale = d3.scaleSqrt().domain([0, maxCounts]).range([0, 50]);
+                locationCountData = locationCountData.filter(d => d.count > 0);
                 console.log(locationCountData.length)
-                locationCountData.forEach(d =>{ d.radius = radiusScale(d.locationCount)});
+                locationCountData.forEach(d =>{ d.radius = radiusScale(d.count)});
                 drawPoints(ctx, data);
 
                 map.on("viewreset", () => {drawPoints(ctx, data)});
