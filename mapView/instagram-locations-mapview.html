@@ -19,7 +19,7 @@
 <body>
 <div id="map"></div>
 <script>
-    mapboxgl.accessToken = 		'pk.eyJ1Ijoid3d5bWFrIiwiYSI6IkxEbENMZzgifQ.pxk3bdzd7n8h4pKzc9zozw';
+    mapboxgl.accessToken = 'pk.eyJ1Ijoid3d5bWFrIiwiYSI6IkxEbENMZzgifQ.pxk3bdzd7n8h4pKzc9zozw';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v9',
@@ -55,7 +55,7 @@
                 console.log(data);
                 var locationCountData = data;
                 var maxCounts = d3.max(locationCountData, d => d.count);
-                var radiusScale = d3.scaleSqrt().domain([0, maxCounts]).range([0, 50]);
+                var radiusScale = d3.scaleSqrt().domain([0, maxCounts]).range([0, 10]);
                 locationCountData = locationCountData.filter(d => d.count > 0);
                 console.log(locationCountData.length)
                 locationCountData.forEach(d =>{ d.radius = radiusScale(d.count)});
