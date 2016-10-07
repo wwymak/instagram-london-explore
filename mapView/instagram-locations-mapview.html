@@ -40,14 +40,16 @@
 
     d3.csv('instagram-london-counts-by-OA.csv')
         .row((d) => {
-            return {
+            var outObj = {
                 count: + d.count,
                 lng: +d.lng,
                 lat: +d.lat,
                 OA11CD: d.OA11CD,
                 populationDen: +d.POPDEN,
                 name: d['WD11NM_BF']
-            }
+            };
+            outObj.normalisedCount = outObj.count / outObj.populationDen;
+            return outObj
         })
         .get((err, data) => {
 //            console.log(err, data);
@@ -55,9 +57,10 @@
                 console.log(data);
                 var locationCountData = data;
                 var maxCounts = d3.max(locationCountData, d => d.count);
-                var radiusScale = d3.scaleSqrt().domain([0, maxCounts]).range([0, 10]);
+                var maxNormalisedCounts = d3.max(locationCountData, d => d.normalisedCount);
+//                var radiusScale = d3.scaleSqrt().domain([0, maxCounts]).range([0, 30]);
+                var radiusScale = d3.scaleSqrt().domain([0, maxNormalisedCounts]).range([0, 10]);
                 locationCountData = locationCountData.filter(d => d.count > 0);
-                console.log(locationCountData.length)
                 locationCountData.forEach(d =>{ d.radius = radiusScale(d.count)});
                 drawPoints(ctx, data);
 
